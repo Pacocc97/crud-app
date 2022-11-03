@@ -52,13 +52,14 @@ const Home: NextPage = () => {
             Añadir producto
           </button>
         </div>
-        <ul>
+        <div>
           {productos.map((producto) => {
             const { id } = producto;
             return (
-              <li key={producto.id}>
+              <div key={producto.id}>
+                <h1>{producto.id}</h1>
                 <div className="max-w-sm overflow-hidden rounded shadow-lg">
-                  <div className="px-6 py-4">
+                  <div className="px-4 py-2">
                     <div className="mb-2 text-xl font-bold">
                       <input
                         type="text"
@@ -67,6 +68,7 @@ const Home: NextPage = () => {
                         onChange={(e) => setNuevoNombre(e.target.value)}
                       />
                     </div>
+                    <h3>Descripción:</h3>
                     <p className="text-base text-gray-700">
                       <textarea
                         defaultValue={producto.desc}
@@ -75,28 +77,30 @@ const Home: NextPage = () => {
                     </p>
                   </div>
                   <div className="px-6 pt-4 pb-2">
-                    <span className="mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                      <button
-                        onClick={() => {
-                          editarProducto({
-                            nombre: nuevoNombre,
-                            desc: nuevaDesc,
-                            id: producto.id,
-                          });
-                        }}
-                      >
+                    <button
+                      onClick={() => {
+                        editarProducto({
+                          nombre: nuevoNombre,
+                          desc: nuevaDesc,
+                          id: producto.id,
+                        });
+                      }}
+                    >
+                      <span className="mr-2 mb-2 inline-block rounded-full bg-blue-600 px-3 py-1 text-sm font-semibold text-white ">
                         Editar
+                      </span>
+                    </button>
+                    <span className="mr-2 mb-2 inline-block rounded-full bg-red-600 px-3 py-1 text-sm font-semibold text-white">
+                      <button onClick={() => borrarProducto({ id })}>
+                        Eliminar
                       </button>
-                    </span>
-                    <span className="mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                      <button onClick={() => borrarProducto({ id })}>X</button>
                     </span>
                   </div>
                 </div>
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </main>
     </>
   );

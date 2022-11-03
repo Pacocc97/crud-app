@@ -53,7 +53,7 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
               setVentanaAbierta(false);
             }}
             type="button"
-            className="rounded-md bg-violet-500 p-1 text-xs text-white transition hover:bg-violet-600"
+            className="rounded-md bg-black p-1 text-xs text-white transition hover:bg-gray-600"
           >
             Añadir
           </button>
