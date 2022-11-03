@@ -15,14 +15,17 @@ export const productoRouter = router({
       return productos;
     }),
 
-  verProductos: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input }) => {
-      const producto = await ctx.prisma.productoCompra.delete({
-        where: {
-          id: input.id,
-        },
-      });
-      return producto;
-    }),
+  verProductos: publicProcedure.query(async ({ ctx }) => {
+    const productos = await ctx.prisma.productoCompra.findMany();
+    return productos;
+  }),
+  // .input(z.object({ id: z.string() }))
+  // .mutation(async ({ ctx, input }) => {
+  //   const producto = await ctx.prisma.productoCompra.delete({
+  //     where: {
+  //       id: input.id,
+  //     },
+  //   });
+  //   return producto;
+  // }),
 });

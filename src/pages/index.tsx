@@ -11,6 +11,12 @@ const Home: NextPage = () => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
 
+  const { data: productosData } = trpc.productos.verProductos.useQuery([], {
+    onSuccess(productos) {
+      setProductos(productos);
+    },
+  });
+
   return (
     <>
       <Head>
@@ -35,9 +41,9 @@ const Home: NextPage = () => {
           </button>
         </div>
         <ul>
-          {[["producto1"], ["producto2"], ["producto3"]].map((producto) => (
+          {productos.map((producto) => (
             <li>
-              <span>{producto}</span>
+              <span>{producto.nombre}</span>
             </li>
           ))}
         </ul>
