@@ -101,7 +101,7 @@ const Home: NextPage = () => {
               <div key={producto.id}>
                 <h1 className="text-xs">id: {producto.id}</h1>
                 <div className="max-w-sm overflow-hidden rounded shadow-lg">
-                  <Link as={`/${producto.nombre}`} href={`/[nombre]`}>
+                  <Link as={`${slugify(producto.nombre)}`} href={`/[slug]`}>
                     <div className="px-4 py-2">
                       <span className="font-thin">Nombre:</span>
                       <div className="mb-2 text-xl font-bold">
