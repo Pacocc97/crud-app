@@ -28,7 +28,6 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
           <h4>Nombre</h4>
           <input
             type="text"
-          
             value={nombreProducto}
             onChange={(e) => setNombreProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
@@ -49,17 +48,26 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
           >
             Cancelar
           </button>
-          <button
-            onClick={nombreProducto == '' ? console.log('error')
-             : () => {
-              agregarProducto({ nombre: nombreProducto, desc: descProducto });
-              setVentanaAbierta(false);
-            }}
-            type="button"
-            className="rounded-md bg-black p-1 text-xs text-white transition hover:bg-gray-600"
-          >
-            Añadir
-          </button>
+          {nombreProducto == "" || descProducto == "" ? (
+            <button
+              type="button"
+              className="rounded-md  bg-gray-600 p-1 text-xs text-white transition"
+              disabled
+            >
+              Llenar campos
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                agregarProducto({ nombre: nombreProducto, desc: descProducto });
+                setVentanaAbierta(false);
+              }}
+              type="button"
+              className="rounded-md bg-black p-1 text-xs text-white transition hover:bg-gray-600"
+            >
+              Añadir
+            </button>
+          )}
         </div>
       </div>
     </div>
