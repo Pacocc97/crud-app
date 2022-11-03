@@ -19,7 +19,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {ventanaAbierta && (
-        <VentanaAgregar setVentanaAbierta={setVentanaAbierta} />
+        <VentanaAgregar
+          setProductos={setProductos}
+          setVentanaAbierta={setVentanaAbierta}
+        />
       )}
       <main className="mx-auto my-12 max-w-3xl">
         <div className="flex justify-between">

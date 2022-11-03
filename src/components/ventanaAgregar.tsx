@@ -1,10 +1,25 @@
+import { ProductoCompra } from "@prisma/client";
 import { Dispatch, FC, SetStateAction, useState } from "react";
+import { trpc } from "../utils/trpc";
 
 interface VentanaAgregar {
   setVentanaAbierta: Dispatch<SetStateAction<boolean>>;
+  setProductos: Dispatch<SetStateAction<ProductoCompra[]>>;
 }
 
-const VentanaAgregar: FC<VentanaAgregar> = ({ setVentanaAbierta }) => {
+const VentanaAgregar: FC<VentanaAgregar> = ({
+  setVentanaAbierta,
+  setProductos,
+}) => {
+  const [nombreProducto, setNombreProducto] = useState<string>("");
+  const [descProducto, setDescProducto] = useState<string>("");
+  const { mutate: agregarProducto } =
+    trpc.productos.agregarProducto.useMutation({
+      onSuccess(productoCompra) {
+        setProductos((prev) => [...prev, productoCompra]);
+      },
+    });
+
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/75">
       <div className="space-y-4 bg-white p-3">
@@ -13,10 +28,14 @@ const VentanaAgregar: FC<VentanaAgregar> = ({ setVentanaAbierta }) => {
           <h4>Nombre</h4>
           <input
             type="text"
+            value={nombreProducto}
+            onChange={(e) => setNombreProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
           <h4>Descripción</h4>
           <input
+            value={descProducto}
+            onChange={(e) => setDescProducto(e.target.value)}
             type="text"
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
@@ -30,6 +49,10 @@ const VentanaAgregar: FC<VentanaAgregar> = ({ setVentanaAbierta }) => {
             Cancelar
           </button>
           <button
+            onClick={() => {
+              agregarProducto({ nombre: nombreProducto, desc: descProducto });
+              setVentanaAbierta(false);
+            }}
             type="button"
             className="rounded-md bg-violet-500 p-1 text-xs text-white transition hover:bg-violet-600"
           >
