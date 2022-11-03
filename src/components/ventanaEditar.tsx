@@ -8,6 +8,7 @@ interface VentanaEditar {
   setProductoEditado: Dispatch<SetStateAction<ProductoCompra[]>>;
   nuevaDesc: string;
   nuevoNombre: string;
+  nuevoPrecio: string;
   idProducto: string;
 }
 
@@ -15,12 +16,15 @@ const VentanaEditar: FC<VentanaEditar> = ({
   idProducto,
   nuevaDesc,
   nuevoNombre,
+  nuevoPrecio,
   setVentanaAbiertaEditar,
   setProductoEditado,
 }) => {
   const [nuevoNombreProducto, setNuevoNombreProducto] =
     useState<string>(nuevoNombre);
   const [nuevaDescProducto, setNuevaDescProducto] = useState<string>(nuevaDesc);
+  const [nuevoPrecioProducto, setNuevoPrecioProducto] =
+    useState<string>(nuevoPrecio);
   const [errorCampo, setErrorCampo] = useState<boolean>(false);
   const { mutate: editarProducto } = trpc.productos.editarProducto.useMutation(
     {}
@@ -44,6 +48,14 @@ const VentanaEditar: FC<VentanaEditar> = ({
             type="text"
             value={nuevoNombreProducto}
             onChange={(e) => setNuevoNombreProducto(e.target.value)}
+            className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
+          />
+          <h4>Precio</h4>
+          <input
+            required
+            type="text"
+            value={nuevoPrecioProducto}
+            onChange={(e) => setNuevoPrecioProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
           <h4>Descripción</h4>
@@ -76,6 +88,7 @@ const VentanaEditar: FC<VentanaEditar> = ({
                   nombre: nuevoNombreProducto,
                   desc: nuevaDescProducto,
                   id: idProducto,
+                  precio: nuevoPrecioProducto,
                 });
 
                 setVentanaAbiertaEditar(false);

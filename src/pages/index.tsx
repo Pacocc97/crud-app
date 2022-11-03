@@ -16,16 +16,14 @@ const Home: NextPage = () => {
     useState<boolean>(false);
   const [nuevoNombre, setNuevoNombre] = useState<string>("");
   const [nuevaDesc, setNuevaDesc] = useState<string>("");
+  const [nuevoPrecio, setNuevoPrecio] = useState<string>("");
   const [idProducto, setIdProducto] = useState<string>("");
 
-  const { data: productosData } = trpc.productos.verProductos.useQuery<string>(
-    "",
-    {
-      onSuccess(productos) {
-        return setProductos(productos);
-      },
-    }
-  );
+  const data = trpc.productos.verProductos.useQuery([], {
+    onSuccess(productos) {
+      setProductos(productos);
+    },
+  });
 
   const { mutate: borrarProducto } = trpc.productos.borrarProducto.useMutation({
     onSuccess(productoCompra) {
@@ -34,9 +32,8 @@ const Home: NextPage = () => {
       );
     },
   });
-  const { mutate: editarProducto } = trpc.productos.editarProducto.useMutation(
-    {}
-  );
+  const editarProducto = trpc.productos.editarProducto.useMutation({});
+
   return (
     <>
       <Head>
@@ -52,6 +49,7 @@ const Home: NextPage = () => {
       )}
       {ventanaAbiertaEditar && (
         <VentanaEditar
+          nuevoPrecio={nuevoPrecio}
           idProducto={idProducto}
           nuevoNombre={nuevoNombre}
           nuevaDesc={nuevaDesc}
@@ -75,19 +73,15 @@ const Home: NextPage = () => {
             const { id } = producto;
             return (
               <div key={producto.id}>
-                <h1 className="text-xs">{producto.id}</h1>
+                <h1 className="text-xs">id: {producto.id}</h1>
                 <div className="max-w-sm overflow-hidden rounded shadow-lg">
                   <div className="px-4 py-2">
+                    <span className="font-thin">Nombre:</span>
                     <div className="mb-2 text-xl font-bold">
                       {producto.nombre}
-                      {/* <input
-                        type="text"
-                        defaultValue={producto.nombre}
-                        //value={nuevoNombre}
-                        onChange={(e) => setNuevoNombre(e.target.value)}
-                      /> */}
                     </div>
-                    <h3>Descripción:</h3>
+                    <h1>${producto.precio}</h1>
+                    <h3 className="font-thin">Descripción:</h3>
                     <p className="text-base text-gray-700">
                       {producto.desc}
                       {/* <textarea
@@ -108,6 +102,7 @@ const Home: NextPage = () => {
                         setIdProducto(producto.id);
                         setNuevaDesc(producto.desc);
                         setNuevoNombre(producto.nombre);
+                        setNuevoPrecio(producto.precio);
                         setVentanaAbiertaEditar(true);
                       }}
                     >

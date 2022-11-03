@@ -13,6 +13,7 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
 }) => {
   const [nombreProducto, setNombreProducto] = useState<string>("");
   const [descProducto, setDescProducto] = useState<string>("");
+  const [precioProducto, setPrecioProducto] = useState<string>("");
   const { mutate: agregarProducto } =
     trpc.productos.agregarProducto.useMutation({
       onSuccess(productoCompra) {
@@ -30,6 +31,13 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
             type="text"
             value={nombreProducto}
             onChange={(e) => setNombreProducto(e.target.value)}
+            className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
+          />
+          <h4>Precio</h4>
+          <input
+            type="text"
+            value={precioProducto}
+            onChange={(e) => setPrecioProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
           <h4>Descripción</h4>
@@ -59,7 +67,11 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
           ) : (
             <button
               onClick={() => {
-                agregarProducto({ nombre: nombreProducto, desc: descProducto });
+                agregarProducto({
+                  nombre: nombreProducto,
+                  desc: descProducto,
+                  precio: precioProducto,
+                });
                 setVentanaAbierta(false);
               }}
               type="button"
