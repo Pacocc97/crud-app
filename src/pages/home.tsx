@@ -9,7 +9,7 @@ import VentanaEditar from "../components/ventanaEditar";
 
 import { trpc } from "../utils/trpc";
 
-const Productos: NextPage = () => {
+const Home: NextPage = () => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const [productoEditado, setProductoEditado] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
@@ -244,4 +244,4 @@ const Productos: NextPage = () => {
   );
 };
 
-export default Productos;
+export default Home;
