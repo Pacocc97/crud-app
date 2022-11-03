@@ -1,3 +1,4 @@
+import { ProductoCompra } from "@prisma/client";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import VentanaAgregar from "../components/ventanaAgregar";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
+  const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
 
   return (
@@ -29,6 +31,13 @@ const Home: NextPage = () => {
             Añadir producto
           </button>
         </div>
+        <ul>
+          {[["producto1"], ["producto2"], ["producto3"]].map((producto) => (
+            <li>
+              <span>{producto}</span>
+            </li>
+          ))}
+        </ul>
       </main>
     </>
   );
