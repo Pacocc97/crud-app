@@ -18,6 +18,7 @@ const Home: NextPage = () => {
   const [nuevaDesc, setNuevaDesc] = useState<string>("");
   const [nuevoPrecio, setNuevoPrecio] = useState<string>("");
   const [idProducto, setIdProducto] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState("");
 
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -68,58 +69,173 @@ const Home: NextPage = () => {
           </button>
         </div>
         <hr className="mb-5" />
+        <form className="mb-5 border">
+          <label>Ordenar: </label>
+          {"  "}
+          <select
+            onChange={(e) => {
+              console.log(e.target.value);
+              setSortOrder(e.target.value);
+            }}
+          >
+            <option selected={true} value="">
+              Relevancia
+            </option>
+            <option value="Ascendente">Precio: bajo a alto</option>
+
+            <option value="Descendente">Precio: alto a bajo</option>
+          </select>
+        </form>
         <div className="grid grid-cols-4 gap-4">
-          {productos.map((producto) => {
-            const { id } = producto;
-            return (
-              <div key={producto.id}>
-                <h1 className="text-xs">id: {producto.id}</h1>
-                <div className="max-w-sm overflow-hidden rounded shadow-lg">
-                  <div className="px-4 py-2">
-                    <span className="font-thin">Nombre:</span>
-                    <div className="mb-2 text-xl font-bold">
-                      {producto.nombre}
-                    </div>
-                    <h1>${producto.precio}</h1>
-                    <h3 className="font-thin">Descripción:</h3>
-                    <p className="text-base text-gray-700">
-                      {producto.desc}
-                      {/* <textarea
+          {sortOrder === "Ascendente"
+            ? productos
+                .sort((a, b) => parseFloat(a.precio) - parseFloat(b.precio))
+                .map((producto) => {
+                  const { id } = producto;
+                  return (
+                    <div key={producto.id}>
+                      <h1 className="text-xs">id: {producto.id}</h1>
+                      <div className="max-w-sm overflow-hidden rounded shadow-lg">
+                        <div className="px-4 py-2">
+                          <span className="font-thin">Nombre:</span>
+                          <div className="mb-2 text-xl font-bold">
+                            {producto.nombre}
+                          </div>
+                          <h1>${producto.precio}</h1>
+                          <h3 className="font-thin">Descripción:</h3>
+                          <p className="text-base text-gray-700">
+                            {producto.desc}
+                            {/* <textarea
                         className="border-2"
                         defaultValue={producto.desc}
                         onChange={(e) => setNuevaDesc(e.target.value)}
                       /> */}
-                    </p>
+                          </p>
+                        </div>
+                        <div className="px-6 pt-4 pb-2">
+                          <button
+                            onClick={() => {
+                              // editarProducto({
+                              //   nombre: nuevoNombre,
+                              //   desc: nuevaDesc,
+                              //   id: producto.id,
+                              // });
+                              setIdProducto(producto.id);
+                              setNuevaDesc(producto.desc);
+                              setNuevoNombre(producto.nombre);
+                              setNuevoPrecio(producto.precio);
+                              setVentanaAbiertaEditar(true);
+                            }}
+                          >
+                            <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
+                              Editar
+                            </span>
+                          </button>
+                          <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
+                            <button onClick={() => borrarProducto({ id })}>
+                              Eliminar
+                            </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+            : sortOrder === "Descendente"
+            ? productos
+                .sort((a, b) => parseFloat(b.precio) - parseFloat(a.precio))
+                .map((producto) => {
+                  const { id } = producto;
+                  return (
+                    <div key={producto.id}>
+                      <h1 className="text-xs">id: {producto.id}</h1>
+                      <div className="max-w-sm overflow-hidden rounded shadow-lg">
+                        <div className="px-4 py-2">
+                          <span className="font-thin">Nombre:</span>
+                          <div className="mb-2 text-xl font-bold">
+                            {producto.nombre}
+                          </div>
+                          <h1>${producto.precio}</h1>
+                          <h3 className="font-thin">Descripción:</h3>
+                          <p className="text-base text-gray-700">
+                            {producto.desc}
+                            {/* <textarea
+                        className="border-2"
+                        defaultValue={producto.desc}
+                        onChange={(e) => setNuevaDesc(e.target.value)}
+                      /> */}
+                          </p>
+                        </div>
+                        <div className="px-6 pt-4 pb-2">
+                          <button
+                            onClick={() => {
+                              // editarProducto({
+                              //   nombre: nuevoNombre,
+                              //   desc: nuevaDesc,
+                              //   id: producto.id,
+                              // });
+                              setIdProducto(producto.id);
+                              setNuevaDesc(producto.desc);
+                              setNuevoNombre(producto.nombre);
+                              setNuevoPrecio(producto.precio);
+                              setVentanaAbiertaEditar(true);
+                            }}
+                          >
+                            <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
+                              Editar
+                            </span>
+                          </button>
+                          <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
+                            <button onClick={() => borrarProducto({ id })}>
+                              Eliminar
+                            </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+            : productos.map((producto) => {
+                const { id } = producto;
+                return (
+                  <div key={producto.id}>
+                    <h1 className="text-xs">id: {producto.id}</h1>
+                    <div className="max-w-sm overflow-hidden rounded shadow-lg">
+                      <div className="px-4 py-2">
+                        <span className="font-thin">Nombre:</span>
+                        <div className="mb-2 text-xl font-bold">
+                          {producto.nombre}
+                        </div>
+                        <h1>${producto.precio}</h1>
+                        <h3 className="font-thin">Descripción:</h3>
+                        <p className="text-base text-gray-700">
+                          {producto.desc}
+                        </p>
+                      </div>
+                      <div className="px-6 pt-4 pb-2">
+                        <button
+                          onClick={() => {
+                            setIdProducto(producto.id);
+                            setNuevaDesc(producto.desc);
+                            setNuevoNombre(producto.nombre);
+                            setNuevoPrecio(producto.precio);
+                            setVentanaAbiertaEditar(true);
+                          }}
+                        >
+                          <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
+                            Editar
+                          </span>
+                        </button>
+                        <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
+                          <button onClick={() => borrarProducto({ id })}>
+                            Eliminar
+                          </button>
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="px-6 pt-4 pb-2">
-                    <button
-                      onClick={() => {
-                        // editarProducto({
-                        //   nombre: nuevoNombre,
-                        //   desc: nuevaDesc,
-                        //   id: producto.id,
-                        // });
-                        setIdProducto(producto.id);
-                        setNuevaDesc(producto.desc);
-                        setNuevoNombre(producto.nombre);
-                        setNuevoPrecio(producto.precio);
-                        setVentanaAbiertaEditar(true);
-                      }}
-                    >
-                      <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
-                        Editar
-                      </span>
-                    </button>
-                    <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
-                      <button onClick={() => borrarProducto({ id })}>
-                        Eliminar
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
         </div>
       </main>
     </>
