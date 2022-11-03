@@ -29,4 +29,19 @@ export const productoRouter = router({
       });
       return producto;
     }),
+
+  editarProducto: publicProcedure
+    .input(z.object({ id: z.string(), nombre: z.string(), desc: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const productos = await ctx.prisma.productoCompra.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          nombre: input.nombre,
+          desc: input.desc,
+        },
+      });
+      return productos;
+    }),
 });

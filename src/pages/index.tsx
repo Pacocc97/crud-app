@@ -10,6 +10,8 @@ import { trpc } from "../utils/trpc";
 const Home: NextPage = () => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
+  const [nuevoNombre, setNuevoNombre] = useState<string>("");
+  const [nuevaDesc, setNuevaDesc] = useState<string>("");
 
   const { data: productosData } = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -24,6 +26,9 @@ const Home: NextPage = () => {
       );
     },
   });
+  const { mutate: editarProducto } = trpc.productos.editarProducto.useMutation(
+    {}
+  );
   return (
     <>
       <Head>
@@ -52,11 +57,42 @@ const Home: NextPage = () => {
             const { id } = producto;
             return (
               <li key={producto.id}>
-                <span>
-                  <strong>{producto.nombre}</strong>
-                </span>
-                <span>{producto.desc}</span>
-                <button onClick={() => borrarProducto({ id })}>X</button>
+                <div className="max-w-sm overflow-hidden rounded shadow-lg">
+                  <div className="px-6 py-4">
+                    <div className="mb-2 text-xl font-bold">
+                      <input
+                        type="text"
+                        defaultValue={producto.nombre}
+                        //value={nuevoNombre}
+                        onChange={(e) => setNuevoNombre(e.target.value)}
+                      />
+                    </div>
+                    <p className="text-base text-gray-700">
+                      <textarea
+                        defaultValue={producto.desc}
+                        onChange={(e) => setNuevaDesc(e.target.value)}
+                      />
+                    </p>
+                  </div>
+                  <div className="px-6 pt-4 pb-2">
+                    <span className="mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+                      <button
+                        onClick={() => {
+                          editarProducto({
+                            nombre: nuevoNombre,
+                            desc: nuevaDesc,
+                            id: producto.id,
+                          });
+                        }}
+                      >
+                        Editar
+                      </button>
+                    </span>
+                    <span className="mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+                      <button onClick={() => borrarProducto({ id })}>X</button>
+                    </span>
+                  </div>
+                </div>
               </li>
             );
           })}
