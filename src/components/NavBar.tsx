@@ -1,22 +1,23 @@
+import Link from "next/link";
 import React from "react";
 
 export const NavBar = () => {
   return (
     <ul className="flex">
       <li className="mr-6">
-        <a className="text-blue-500 hover:text-blue-800" href="#">
-          Active
-        </a>
+        <Link className="text-blue-500 hover:text-blue-800" href="/">
+          Home
+        </Link>
       </li>
       <li className="mr-6">
-        <a className="text-blue-500 hover:text-blue-800" href="#">
-          Link
-        </a>
+        <Link className="text-blue-500 hover:text-blue-800" href="./home">
+          Productos
+        </Link>
       </li>
       <li className="mr-6">
-        <a className="text-blue-500 hover:text-blue-800" href="#">
-          Link
-        </a>
+        <Link className="text-blue-500 hover:text-blue-800" href="./producto">
+          Carrito
+        </Link>
       </li>
       <li className="mr-6">
         <a className="cursor-not-allowed text-gray-400" href="#">

@@ -12,6 +12,7 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
   setProductos,
 }) => {
   const [nombreProducto, setNombreProducto] = useState<string>("");
+  const [stockProducto, setStockProducto] = useState<string>("");
   const [descProducto, setDescProducto] = useState<string>("");
   const [precioProducto, setPrecioProducto] = useState<string>("");
   const { mutate: agregarProducto } =
@@ -38,6 +39,13 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
             type="text"
             value={precioProducto}
             onChange={(e) => setPrecioProducto(e.target.value)}
+            className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
+          />
+          <h4>Stock</h4>
+          <input
+            type="text"
+            value={stockProducto}
+            onChange={(e) => setStockProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
           <h4>Descripción</h4>
@@ -73,6 +81,7 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
                   nombre: nombreProducto,
                   desc: descProducto,
                   precio: precioProducto,
+                  stock: stockProducto,
                 });
                 setVentanaAbierta(false);
               }}

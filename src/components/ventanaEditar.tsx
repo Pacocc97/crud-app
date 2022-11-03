@@ -10,6 +10,7 @@ interface VentanaEditar {
   nuevoNombre: string;
   nuevoPrecio: string;
   idProducto: string;
+  nuevoStock: string;
 }
 
 const VentanaEditar: FC<VentanaEditar> = ({
@@ -17,12 +18,15 @@ const VentanaEditar: FC<VentanaEditar> = ({
   nuevaDesc,
   nuevoNombre,
   nuevoPrecio,
+  nuevoStock,
   setVentanaAbiertaEditar,
   setProductoEditado,
 }) => {
   const [nuevoNombreProducto, setNuevoNombreProducto] =
     useState<string>(nuevoNombre);
   const [nuevaDescProducto, setNuevaDescProducto] = useState<string>(nuevaDesc);
+  const [nuevoStockProducto, setNuevoStockProducto] =
+    useState<string>(nuevoStock);
   const [nuevoPrecioProducto, setNuevoPrecioProducto] =
     useState<string>(nuevoPrecio);
   const [errorCampo, setErrorCampo] = useState<boolean>(false);
@@ -58,6 +62,14 @@ const VentanaEditar: FC<VentanaEditar> = ({
             onChange={(e) => setNuevoPrecioProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
+          <h4>Stock</h4>
+          <input
+            required
+            type="text"
+            value={nuevoStockProducto}
+            onChange={(e) => setNuevoStockProducto(e.target.value)}
+            className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
+          />
           <h4>Descripción</h4>
           <textarea
             value={nuevaDescProducto}
@@ -91,6 +103,7 @@ const VentanaEditar: FC<VentanaEditar> = ({
                   desc: nuevaDescProducto,
                   id: idProducto,
                   precio: nuevoPrecioProducto,
+                  stock: nuevoStockProducto,
                 });
 
                 setVentanaAbiertaEditar(false);

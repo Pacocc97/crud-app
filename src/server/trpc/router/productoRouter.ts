@@ -5,7 +5,12 @@ import { z } from "zod";
 export const productoRouter = router({
   agregarProducto: publicProcedure
     .input(
-      z.object({ nombre: z.string(), desc: z.string(), precio: z.string() })
+      z.object({
+        nombre: z.string(),
+        desc: z.string(),
+        precio: z.string(),
+        stock: z.string(),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const productos = await ctx.prisma.productoCompra.create({
@@ -13,6 +18,7 @@ export const productoRouter = router({
           nombre: input.nombre,
           desc: input.desc,
           precio: input.precio,
+          stock: input.stock,
         },
       });
       return productos;
@@ -40,6 +46,7 @@ export const productoRouter = router({
         nombre: z.string(),
         desc: z.string(),
         precio: z.string(),
+        stock: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -51,6 +58,7 @@ export const productoRouter = router({
           nombre: input.nombre,
           desc: input.desc,
           precio: input.precio,
+          stock: input.stock,
         },
       });
       return productos;
