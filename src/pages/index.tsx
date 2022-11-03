@@ -3,6 +3,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import { NavBar } from "../components/NavBar";
 import VentanaAgregar from "../components/ventanaAgregar";
 import VentanaEditar from "../components/ventanaEditar";
 
@@ -58,6 +59,7 @@ const Home: NextPage = () => {
           setVentanaAbiertaEditar={setVentanaAbiertaEditar}
         />
       )}
+      <NavBar />
       <main className="mx-auto my-12 max-w-3xl">
         <div className="mb-5 flex justify-between">
           <h2 className="text-2xl font-semibold">Lista de productos</h2>
