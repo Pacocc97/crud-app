@@ -21,6 +21,7 @@ const VentanaEditar: FC<VentanaEditar> = ({
   const [nuevoNombreProducto, setNuevoNombreProducto] =
     useState<string>(nuevoNombre);
   const [nuevaDescProducto, setNuevaDescProducto] = useState<string>(nuevaDesc);
+  const [errorCampo, setErrorCampo] = useState<boolean>(false);
   const { mutate: editarProducto } = trpc.productos.editarProducto.useMutation(
     {}
   );
@@ -28,10 +29,18 @@ const VentanaEditar: FC<VentanaEditar> = ({
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/75">
       <div className="space-y-4 bg-white p-3">
-        <h3 className="text-xl font-semibold">Editar Producto</h3>
+        {errorCampo === false ? (
+          <h3 className="text-xl font-semibold">Editar Producto</h3>
+        ) : (
+          <>
+            <h3 className="text-xl font-semibold">Editar Producto</h3>
+            <h4>Favor de llenar los campos</h4>
+          </>
+        )}
         <div>
           <h4>Nombre</h4>
           <input
+            required
             type="text"
             value={nuevoNombreProducto}
             onChange={(e) => setNuevoNombreProducto(e.target.value)}
@@ -53,15 +62,21 @@ const VentanaEditar: FC<VentanaEditar> = ({
             Cancelar
           </button>
           <button
-            onClick={() => {
-              editarProducto({
-                nombre: nuevoNombreProducto,
-                desc: nuevaDescProducto,
-                id: idProducto,
-              });
-              setVentanaAbiertaEditar(false);
-              window.location.reload();
-            }}
+            onClick={
+              nuevoNombreProducto === "" || nuevaDescProducto === ""
+                ? setErrorCampo(true)
+                : 
+                () => {
+                    editarProducto({
+                      nombre: nuevoNombreProducto,
+                      desc: nuevaDescProducto,
+                      id: idProducto,
+                    });
+
+                    setVentanaAbiertaEditar(false);
+                    window.location.reload();
+                  }
+            }
             type="button"
             className="rounded-md bg-black p-1 text-xs text-white transition hover:bg-gray-600"
           >
