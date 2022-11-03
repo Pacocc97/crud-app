@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { ProductoCompra } from "@prisma/client";
 import { trpc } from "../utils/trpc";
 import slugify from "react-slugify";
+import { NavBar } from "../components/NavBar";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const Producto = () => {
+  const { increaseCartQuantity } = useShoppingCart();
+
   const { asPath } = useRouter();
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const data = trpc.productos.verProductos.useQuery([], {
@@ -21,8 +25,11 @@ const Producto = () => {
   const precioMuestra = Number(muestra?.precio).toFixed(2);
   console.log(precioMuestra, "este es el producto");
 
+  
+
   return (
     <>
+      <NavBar />
       {
         <div>
           <h1 className="text-xs">id:{muestra?.id}</h1>
@@ -36,6 +43,12 @@ const Producto = () => {
               <p className="text-base text-gray-700">{muestra?.desc}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
+              <button
+                className="w-100"
+                onClick={() => increaseCartQuantity(Number(muestra?.id))}
+              >
+                + Add To Cart
+              </button>
               <button>
                 <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
                   Editar
