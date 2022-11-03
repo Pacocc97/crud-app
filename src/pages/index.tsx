@@ -14,16 +14,18 @@ const Home: NextPage = () => {
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
   const [ventanaAbiertaEditar, setVentanaAbiertaEditar] =
     useState<boolean>(false);
-  const [ventanaEditar, setVentanaEditar] = useState<boolean>(false);
   const [nuevoNombre, setNuevoNombre] = useState<string>("");
   const [nuevaDesc, setNuevaDesc] = useState<string>("");
   const [idProducto, setIdProducto] = useState<string>("");
 
-  const { data: productosData } = trpc.productos.verProductos.useQuery([], {
-    onSuccess(productos) {
-      setProductos(productos);
-    },
-  });
+  const { data: productosData } = trpc.productos.verProductos.useQuery<string>(
+    "",
+    {
+      onSuccess(productos) {
+        return setProductos(productos);
+      },
+    }
+  );
 
   const { mutate: borrarProducto } = trpc.productos.borrarProducto.useMutation({
     onSuccess(productoCompra) {
