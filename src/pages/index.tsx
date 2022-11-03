@@ -4,14 +4,20 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import VentanaAgregar from "../components/ventanaAgregar";
+import VentanaEditar from "../components/ventanaEditar";
 
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
+  const [productoEditado, setProductoEditado] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
+  const [ventanaAbiertaEditar, setVentanaAbiertaEditar] =
+    useState<boolean>(false);
+  const [ventanaEditar, setVentanaEditar] = useState<boolean>(false);
   const [nuevoNombre, setNuevoNombre] = useState<string>("");
   const [nuevaDesc, setNuevaDesc] = useState<string>("");
+  const [idProducto, setIdProducto] = useState<string>("");
 
   const { data: productosData } = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -42,8 +48,17 @@ const Home: NextPage = () => {
           setVentanaAbierta={setVentanaAbierta}
         />
       )}
+      {ventanaAbiertaEditar && (
+        <VentanaEditar
+          idProducto={idProducto}
+          nuevoNombre={nuevoNombre}
+          nuevaDesc={nuevaDesc}
+          setProductoEditado={setProductoEditado}
+          setVentanaAbiertaEditar={setVentanaAbiertaEditar}
+        />
+      )}
       <main className="mx-auto my-12 max-w-3xl">
-        <div className="flex justify-between">
+        <div className="mb-5 flex justify-between">
           <h2 className="text-2xl font-semibold">Lista de productos</h2>
           <button
             onClick={() => setVentanaAbierta(true)}
@@ -52,45 +67,53 @@ const Home: NextPage = () => {
             Añadir producto
           </button>
         </div>
-        <div>
+        <hr className="mb-5" />
+        <div className="grid grid-cols-4 gap-4">
           {productos.map((producto) => {
             const { id } = producto;
             return (
               <div key={producto.id}>
-                <h1>{producto.id}</h1>
+                <h1 className="text-xs">{producto.id}</h1>
                 <div className="max-w-sm overflow-hidden rounded shadow-lg">
                   <div className="px-4 py-2">
                     <div className="mb-2 text-xl font-bold">
-                      <input
+                      {producto.nombre}
+                      {/* <input
                         type="text"
                         defaultValue={producto.nombre}
                         //value={nuevoNombre}
                         onChange={(e) => setNuevoNombre(e.target.value)}
-                      />
+                      /> */}
                     </div>
                     <h3>Descripción:</h3>
                     <p className="text-base text-gray-700">
-                      <textarea
+                      {producto.desc}
+                      {/* <textarea
+                        className="border-2"
                         defaultValue={producto.desc}
                         onChange={(e) => setNuevaDesc(e.target.value)}
-                      />
+                      /> */}
                     </p>
                   </div>
                   <div className="px-6 pt-4 pb-2">
                     <button
                       onClick={() => {
-                        editarProducto({
-                          nombre: nuevoNombre,
-                          desc: nuevaDesc,
-                          id: producto.id,
-                        });
+                        // editarProducto({
+                        //   nombre: nuevoNombre,
+                        //   desc: nuevaDesc,
+                        //   id: producto.id,
+                        // });
+                        setIdProducto(producto.id);
+                        setNuevaDesc(producto.desc);
+                        setNuevoNombre(producto.nombre);
+                        setVentanaAbiertaEditar(true);
                       }}
                     >
-                      <span className="mr-2 mb-2 inline-block rounded-full bg-blue-600 px-3 py-1 text-sm font-semibold text-white ">
+                      <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
                         Editar
                       </span>
                     </button>
-                    <span className="mr-2 mb-2 inline-block rounded-full bg-red-600 px-3 py-1 text-sm font-semibold text-white">
+                    <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
                       <button onClick={() => borrarProducto({ id })}>
                         Eliminar
                       </button>
