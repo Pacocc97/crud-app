@@ -1,5 +1,6 @@
 import { router, publicProcedure } from "../trpc";
 import { z } from "zod";
+//ctx investigar
 
 export const productoRouter = router({
   agregarProducto: publicProcedure
