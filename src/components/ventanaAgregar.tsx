@@ -56,7 +56,9 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
           >
             Cancelar
           </button>
-          {nombreProducto == "" || descProducto == "" ? (
+          {nombreProducto == "" ||
+          descProducto == "" ||
+          precioProducto == "" ? (
             <button
               type="button"
               className="rounded-md  bg-gray-600 p-1 text-xs text-white transition"

@@ -73,7 +73,9 @@ const VentanaEditar: FC<VentanaEditar> = ({
           >
             Cancelar
           </button>
-          {nuevoNombreProducto == "" || nuevaDescProducto == "" ? (
+          {nuevoNombreProducto == "" ||
+          nuevaDescProducto == "" ||
+          nuevoPrecioProducto == "" ? (
             <button
               type="button"
               className="rounded-md  bg-gray-600 p-1 text-xs text-white transition"
