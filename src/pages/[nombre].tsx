@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 const Producto = () => {
+  const { asPath } = useRouter();
   return (
     <div>
       <h1 className="text-xs">id:</h1>
@@ -10,7 +12,7 @@ const Producto = () => {
           <div className="mb-2 text-xl font-bold">nombre</div>
           <h1>$precio</h1>
           <h1>Disponibles: stock</h1>
-          <h3 className="font-thin">Descripción:</h3>
+          <h3 className="font-thin">Descripción: {asPath}</h3>
           <p className="text-base text-gray-700">desc</p>
         </div>
         <div className="px-6 pt-4 pb-2">

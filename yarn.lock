@@ -1786,6 +1786,11 @@
   dependencies:
     "@remix-run/router" "1.0.3"
 
+"react-slugify@^2.1.0":
+  "integrity" "sha512-X+kYdGP1WumAX2exool+1lwjLSZ1dDCaCzwF0KvDWHjPfCD4hxtHvok4oyZEZro2lioaR+lCtyVG8ti2Yvpnsg=="
+  "resolved" "https://registry.npmjs.org/react-slugify/-/react-slugify-2.1.0.tgz"
+  "version" "2.1.0"
+
 "react-ssr-prepass@^1.5.0":
   "integrity" "sha512-yFNHrlVEReVYKsLI5lF05tZoHveA5pGzjFbFJY/3pOqqjGOmMmqx83N4hIjN2n6E1AOa+eQEUxs3CgRnPmT0RQ=="
   "resolved" "https://registry.npmjs.org/react-ssr-prepass/-/react-ssr-prepass-1.5.0.tgz"
