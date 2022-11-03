@@ -15,7 +15,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4"></main>
+      <main className="mx-auto my-12 max-w-3xl">
+        <div className="flex justify-between">
+          <h2 className="text-2xl font-semibold">Lista de productos</h2>
+          <button
+            className="rounded-md bg-black p-2 text-sm text-white transition hover:bg-gray-600"
+          >
+            Añadir producto
+          </button>
+        </div>
+      </main>
     </>
   );
 };
