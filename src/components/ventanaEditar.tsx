@@ -63,10 +63,9 @@ const VentanaEditar: FC<VentanaEditar> = ({
           </button>
           <button
             onClick={
-              nuevoNombreProducto === "" || nuevaDescProducto === ""
-                ? setErrorCampo(true)
-                : 
-                () => {
+              nuevoNombreProducto == "" || nuevaDescProducto == ""
+                ? console.log("error")
+                : () => {
                     editarProducto({
                       nombre: nuevoNombreProducto,
                       desc: nuevaDescProducto,
