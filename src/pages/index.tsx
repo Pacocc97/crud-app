@@ -17,6 +17,13 @@ const Home: NextPage = () => {
     },
   });
 
+  const { mutate: borrarProducto } = trpc.productos.borrarProducto.useMutation({
+    onSuccess(productoCompra) {
+      setProductos((prev) =>
+        prev.filter((producto) => producto.id !== productoCompra.id)
+      );
+    },
+  });
   return (
     <>
       <Head>
@@ -41,11 +48,18 @@ const Home: NextPage = () => {
           </button>
         </div>
         <ul>
-          {productos.map((producto) => (
-            <li>
-              <span>{producto.nombre}</span>
-            </li>
-          ))}
+          {productos.map((producto) => {
+            const { id } = producto;
+            return (
+              <li key={producto.id}>
+                <span>
+                  <strong>{producto.nombre}</strong>
+                </span>
+                <span>{producto.desc}</span>
+                <button onClick={() => borrarProducto({ id })}>X</button>
+              </li>
+            );
+          })}
         </ul>
       </main>
     </>
