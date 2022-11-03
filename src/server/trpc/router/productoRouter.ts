@@ -6,12 +6,23 @@ export const productoRouter = router({
   agregarProducto: publicProcedure
     .input(z.object({ nombre: z.string(), desc: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const items = await ctx.prisma.productoCompra.create({
+      const productos = await ctx.prisma.productoCompra.create({
         data: {
           nombre: input.nombre,
-          desc: input.nombre,
+          desc: input.desc,
         },
       });
-      return items;
+      return productos;
+    }),
+
+  verProductos: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const producto = await ctx.prisma.productoCompra.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return producto;
     }),
 });

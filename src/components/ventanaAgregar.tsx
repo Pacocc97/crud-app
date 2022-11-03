@@ -33,10 +33,9 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
           <h4>Descripción</h4>
-          <input
+          <textarea
             value={descProducto}
             onChange={(e) => setDescProducto(e.target.value)}
-            type="text"
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
         </div>
