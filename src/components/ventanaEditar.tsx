@@ -61,26 +61,32 @@ const VentanaEditar: FC<VentanaEditar> = ({
           >
             Cancelar
           </button>
-          <button
-            onClick={
-              nuevoNombreProducto == "" || nuevaDescProducto == ""
-                ? console.log("error")
-                : () => {
-                    editarProducto({
-                      nombre: nuevoNombreProducto,
-                      desc: nuevaDescProducto,
-                      id: idProducto,
-                    });
+          {nuevoNombreProducto == "" || nuevaDescProducto == "" ? (
+            <button
+              type="button"
+              className="rounded-md  bg-gray-600 p-1 text-xs text-white transition"
+              disabled
+            >
+              Llenar campos
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                editarProducto({
+                  nombre: nuevoNombreProducto,
+                  desc: nuevaDescProducto,
+                  id: idProducto,
+                });
 
-                    setVentanaAbiertaEditar(false);
-                    window.location.reload();
-                  }
-            }
-            type="button"
-            className="rounded-md bg-black p-1 text-xs text-white transition hover:bg-gray-600"
-          >
-            Editar
-          </button>
+                setVentanaAbiertaEditar(false);
+                window.location.reload();
+              }}
+              type="button"
+              className="rounded-md bg-black p-1 text-xs text-white transition hover:bg-gray-600"
+            >
+              Editar
+            </button>
+          )}
         </div>
       </div>
     </div>
