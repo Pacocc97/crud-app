@@ -43,7 +43,7 @@ const Producto = () => {
   });
 
   const muestra = productos[lugar];
-  const precioMuestra = Number(muestra?.precio).toFixed(2);
+  const precioMuestra = Number(muestra?.price).toFixed(2);
   console.log(muestra, "este es el producto");
 
   return (
@@ -84,7 +84,7 @@ const Producto = () => {
                   setIdProducto(muestra.id);
                   setNuevaDesc(muestra.desc);
                   setNuevoNombre(muestra.nombre);
-                  setNuevoPrecio(muestra.precio);
+                  setNuevoPrecio(muestra.price);
                   setVentanaAbiertaEditar(true);
                   setNuevoStock(muestra.stock);
                 }}

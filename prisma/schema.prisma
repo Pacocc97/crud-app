@@ -14,6 +14,6 @@ model ProductoCompra {
   id        String   @id @default(cuid())
   nombre String
   desc String
-  precio String
+  price String
   stock String
 }

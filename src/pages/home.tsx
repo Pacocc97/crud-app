@@ -35,6 +35,18 @@ const Home: NextPage = () => {
   });
   const editarProducto = trpc.productos.editarProducto.useMutation({});
   const { asPath } = useRouter();
+  //////////////////////////////////////////////////////////////////////////
+
+  const {
+    isEmpty,
+    cartTotal,
+    totalUniqueItems,
+    items,
+    updateItemQuantity,
+    removeItem,
+    emptyCart,
+    metadata,
+  } = useCart();
 
   return (
     <>
@@ -63,11 +75,11 @@ const Home: NextPage = () => {
         </div>
         <hr className="mb-5" />
         <div className="mb-10 grid grid-cols-4 gap-4">
-        <button onClick={() => setCartMetadata({ hello: "world" })}>
-          Set metadata
-        </button>
+          <button onClick={() => setCartMetadata({ hello: "world" })}>
+            Set metadata
+          </button>
           {productos.map((producto) => {
-             const alreadyAdded = inCart(producto.id);
+            const alreadyAdded = inCart(producto.id);
             const { id } = producto;
             return (
               <div key={producto.id}>
@@ -79,14 +91,14 @@ const Home: NextPage = () => {
                       <div className="mb-2 text-xl font-bold">
                         {slugify(producto.nombre)}
                       </div>
-                      <h1>${producto.precio}</h1>
+                      <h1>${producto.price}</h1>
                       <h1>Disponibles: ({producto.stock})</h1>
                       <h3 className="font-thin">Descripción:</h3>
                       <p className="text-base text-gray-700">{producto.desc}</p>
                     </div>
                   </Link>
                   <div className="bg-black text-white">
-                    <button onClick={() => addItem(p)}>
+                    <button onClick={() => addItem(producto)}>
                       {alreadyAdded ? "Add again" : "Add to Cart"}
                     </button>
                   </div>
@@ -95,17 +107,44 @@ const Home: NextPage = () => {
             );
           })}
         </div>
-        <div>
-          <h1>Productos en carrito </h1>
-          <ul></ul>
-          <hr />
-          <h2>Total productos</h2>
-          <h2></h2>
-          <h2></h2>
-          <h2></h2>
-          <hr />
-          <button>Checkout</button>
-        </div>
+        {isEmpty ? (
+          <p>Carrito vacío</p>
+        ) : (
+          <div>
+            <h1>
+              Cart ({totalUniqueItems} - {cartTotal})
+            </h1>
+
+            <pre>{JSON.stringify(metadata, null, 2)}</pre>
+
+            {!isEmpty && <button onClick={emptyCart}>Empty cart</button>}
+
+            <ul>
+              {items.map((item) => (
+                <li key={item.id}>
+                  {item.quantity} x {item.name}
+                  <button
+                    onClick={() =>
+                      updateItemQuantity(item.id, item.quantity - 1)
+                    }
+                  >
+                    -
+                  </button>
+                  <button
+                    onClick={() =>
+                      updateItemQuantity(item.id, item.quantity + 1)
+                    }
+                  >
+                    +
+                  </button>
+                  <button onClick={() => removeItem(item.id)}>
+                    Remove &times;
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </main>
     </>
   );

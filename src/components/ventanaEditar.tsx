@@ -102,7 +102,7 @@ const VentanaEditar: FC<VentanaEditar> = ({
                   nombre: nuevoNombreProducto,
                   desc: nuevaDescProducto,
                   id: idProducto,
-                  precio: nuevoPrecioProducto,
+                  price: nuevoPrecioProducto,
                   stock: nuevoStockProducto,
                 });
 

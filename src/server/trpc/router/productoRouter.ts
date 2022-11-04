@@ -8,7 +8,7 @@ export const productoRouter = router({
       z.object({
         nombre: z.string(),
         desc: z.string(),
-        precio: z.string(),
+        price: z.string(),
         stock: z.string(),
       })
     )
@@ -17,7 +17,7 @@ export const productoRouter = router({
         data: {
           nombre: input.nombre,
           desc: input.desc,
-          precio: input.precio,
+          price: input.price,
           stock: input.stock,
         },
       });
@@ -45,7 +45,7 @@ export const productoRouter = router({
         id: z.string(),
         nombre: z.string(),
         desc: z.string(),
-        precio: z.string(),
+        price: z.string(),
         stock: z.string(),
       })
     )
@@ -57,7 +57,7 @@ export const productoRouter = router({
         data: {
           nombre: input.nombre,
           desc: input.desc,
-          precio: input.precio,
+          price: input.price,
           stock: input.stock,
         },
       });

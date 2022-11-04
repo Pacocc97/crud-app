@@ -80,7 +80,7 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
                 agregarProducto({
                   nombre: nombreProducto,
                   desc: descProducto,
-                  precio: precioProducto,
+                  price: precioProducto,
                   stock: stockProducto,
                 });
                 setVentanaAbierta(false);
