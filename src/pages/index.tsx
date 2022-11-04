@@ -8,7 +8,7 @@ function Index() {
     <>
       <NavBar />
       <div className="mb-4">
-        <Link href={"/home"}>Hola</Link>
+        <Link href={"/home"}>Esta es la página de inicio</Link>
       </div>
     </>
   );

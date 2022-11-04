@@ -14,19 +14,6 @@ export const NavBar = () => {
           Productos
         </Link>
       </li>
-      <li className="mr-6">
-        <Link
-          href="./ShoppingCart"
-          className="text-blue-500 hover:text-blue-800"
-        >
-          Carrito
-        </Link>
-      </li>
-      <li className="mr-6">
-        <a className="cursor-not-allowed text-gray-400" href="#">
-          Disabled
-        </a>
-      </li>
     </ul>
   );
 };

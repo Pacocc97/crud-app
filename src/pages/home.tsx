@@ -111,6 +111,7 @@ const Home: NextPage = () => {
             );
           })}
         </div>
+        <hr className="mb-10" />
         <div>
           {isEmpty ? (
             <>
@@ -118,17 +119,19 @@ const Home: NextPage = () => {
             </>
           ) : (
             <>
-              <h1>
-                Carrito ({totalUniqueItems} - ${cartTotal})
-              </h1>
-
+              <h1 className="mb-2 text-xl font-bold">Carrito ( )</h1>
+              <h1>Productos en carrito: {totalUniqueItems}</h1>
+              <h1>Total: ${Number(cartTotal).toFixed(2)}</h1>
+              <h1></h1>
               <pre>{JSON.stringify(metadata, null, 2)}</pre>
 
               <ul>
                 {items.map((item) => (
                   <li key={item.id}>
-                    {item.quantity} x {item.nombre}
+                    {item.quantity} x <strong>{item.nombre}</strong>
                     <button
+                      button
+                      class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
                       onClick={() =>
                         updateItemQuantity(item.id, item.quantity - 1)
                       }
@@ -136,6 +139,8 @@ const Home: NextPage = () => {
                       -
                     </button>
                     <button
+                      button
+                      class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
                       onClick={() =>
                         updateItemQuantity(item.id, item.quantity + 1)
                       }
@@ -143,7 +148,11 @@ const Home: NextPage = () => {
                     >
                       +
                     </button>
-                    <button onClick={() => removeItem(item.id)}>
+                    <button
+                      button
+                      class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                      onClick={() => removeItem(item.id)}
+                    >
                       Remover &times;
                     </button>
                   </li>

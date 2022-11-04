@@ -100,6 +100,13 @@ const Producto = () => {
                   </span>
                 </button>
               </Link>
+              <Link href="/home">
+                <button>
+                  <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
+                    Regresar a producto{" "}
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
