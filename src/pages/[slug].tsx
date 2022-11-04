@@ -1,14 +1,11 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProductoCompra } from "@prisma/client";
 import { trpc } from "../utils/trpc";
 import slugify from "react-slugify";
 import { NavBar } from "../components/NavBar";
-import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const Producto = () => {
-  const { increaseCartQuantity } = useShoppingCart();
-
   const { asPath } = useRouter();
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const data = trpc.productos.verProductos.useQuery([], {
@@ -25,7 +22,9 @@ const Producto = () => {
   const precioMuestra = Number(muestra?.precio).toFixed(2);
   console.log(precioMuestra, "este es el producto");
 
-  
+  useEffect(() => {
+    localStorage.setItem(asPath, JSON.stringify(muestra));
+  }, [muestra]);
 
   return (
     <>
@@ -43,10 +42,7 @@ const Producto = () => {
               <p className="text-base text-gray-700">{muestra?.desc}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
-              <button
-                className="w-100"
-                onClick={() => increaseCartQuantity(Number(muestra?.id))}
-              >
+              <button className="w-100 bg-black text-white">
                 + Add To Cart
               </button>
               <button>

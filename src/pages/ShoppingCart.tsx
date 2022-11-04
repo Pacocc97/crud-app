@@ -1,7 +1,6 @@
 import { ProductoCompra } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useShoppingCart } from "../context/ShoppingCartContext";
 import { trpc } from "../utils/trpc";
 import { CartItem } from "../components/CartItem";
 import { NavBar } from "../components/NavBar";
@@ -12,18 +11,21 @@ type ShoppingCartProps = {
 
 const ShoppingCart = ({ isOpen }: ShoppingCartProps) => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
+  const [datos, setDatos] = useState([]);
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
       setProductos(productos);
     },
   });
+  useEffect(() => {
+    localStorage.setItem("dataKey", JSON.stringify(datos));
+  }, [datos]);
 
-  const { closeCart, cartItems } = useShoppingCart();
   return (
     <>
       <NavBar />
       <button
-        class="mr-1.5 inline-block rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out  hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+        className="mr-1.5 inline-block rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out  hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasRight"

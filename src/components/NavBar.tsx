@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+
 
 export const NavBar = () => {
-  const { openCart, cartQuantity } = useShoppingCart();
+ 
   return (
     <ul className="flex">
       <li className="mr-6">
