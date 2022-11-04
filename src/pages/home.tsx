@@ -77,14 +77,14 @@ const Home: NextPage = () => {
         </div>
         <hr className="mb-5" />
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="mb-10 grid grid-cols-4 gap-4">
           {productos.map((producto) => {
             const { id } = producto;
             return (
               <div key={producto.id}>
                 <h1 className="text-xs">id: {producto.id}</h1>
                 <div className="max-w-sm overflow-hidden rounded shadow-lg">
-                  <Link as={`${slugify(producto.nombre)}`} href={`/[slug]`}>
+                  <Link as={`${slugify(producto.id)}`} href={`/[slug]`}>
                     <div className="px-4 py-2">
                       <span className="font-thin">Nombre:</span>
                       <div className="mb-2 text-xl font-bold">
@@ -121,6 +121,22 @@ const Home: NextPage = () => {
               </div>
             );
           })}
+        </div>
+        <div>
+          <h1>Productos en carrito</h1>
+          <ul>
+            <li>Prueba</li>
+            <li>Prueba</li>
+            <li>Prueba</li>
+            <li>Prueba</li>
+          </ul>
+          <hr />
+          <h2>Total productos</h2>
+          <h2></h2>
+          <h2></h2>
+          <h2></h2>
+          <hr />
+          <button>Checkout</button>
         </div>
       </main>
     </>
