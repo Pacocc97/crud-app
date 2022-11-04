@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { NavBar } from "../components/NavBar";
 import VentanaAgregar from "../components/ventanaAgregar";
-import VentanaEditar from "../components/ventanaEditar";
 import slugify from "react-slugify";
 import { useRouter } from "next/router";
+import { CartProvider, useCart } from "react-use-cart";
 
 import { trpc } from "../utils/trpc";
 
@@ -16,6 +16,7 @@ const Home: NextPage = () => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const [productosCarrito, setProductosCarrito] = useState([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
+  const { addItem, inCart, setCartMetadata } = useCart();
 
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -23,7 +24,7 @@ const Home: NextPage = () => {
     },
   });
 
-  console.log(productosCarrito, "esto es data");
+  console.log(productos, "esto es data");
 
   const { mutate: borrarProducto } = trpc.productos.borrarProducto.useMutation({
     onSuccess(productoCompra) {
@@ -61,9 +62,12 @@ const Home: NextPage = () => {
           </button>
         </div>
         <hr className="mb-5" />
-
         <div className="mb-10 grid grid-cols-4 gap-4">
+        <button onClick={() => setCartMetadata({ hello: "world" })}>
+          Set metadata
+        </button>
           {productos.map((producto) => {
+             const alreadyAdded = inCart(producto.id);
             const { id } = producto;
             return (
               <div key={producto.id}>
@@ -81,17 +85,9 @@ const Home: NextPage = () => {
                       <p className="text-base text-gray-700">{producto.desc}</p>
                     </div>
                   </Link>
-                  <div className="px-6 pt-4 pb-2">
-                    <button
-                      onClick={() =>
-                        setProductosCarrito([
-                          ...productosCarrito,
-                          [producto.nombre],
-                        ])
-                      }
-                      className="bg-black text-white"
-                    >
-                      Añadir al carrito
+                  <div className="bg-black text-white">
+                    <button onClick={() => addItem(p)}>
+                      {alreadyAdded ? "Add again" : "Add to Cart"}
                     </button>
                   </div>
                 </div>
