@@ -48,9 +48,10 @@ const Home: NextPage = () => {
     metadata,
   } = useCart();
 
-  const producto = items.map((item) => `${item.price}`);
+  const producto = items.map((item) => `${item.quantity}`);
 
   console.log(producto, "hola");
+  
 
   return (
     <>
@@ -86,11 +87,11 @@ const Home: NextPage = () => {
               <div key={producto.id}>
                 <h1 className="text-xs">id: {producto.id}</h1>
                 <div className="max-w-sm overflow-hidden rounded shadow-lg">
-                  <Link as={`${slugify(producto.id)}`} href={`/[slug]`}>
+                  <Link as={`${producto.id}`} href={`/[slug]`}>
                     <div className="px-4 py-2">
                       <span className="font-thin">Nombre:</span>
                       <div className="mb-2 text-xl font-bold">
-                        {slugify(producto.nombre)}
+                        {producto.nombre}
                       </div>
                       <h1>${Number(producto.price).toFixed(2)}</h1>
                       <h1>Disponibles: ({producto.stock})</h1>
@@ -157,6 +158,9 @@ const Home: NextPage = () => {
                       >
                         Remover &times;
                       </button>
+                    </li>
+                    <li>
+                      Total producto: ${(item.quantity * item.price).toFixed(2)}
                     </li>
                     <hr />
                   </>

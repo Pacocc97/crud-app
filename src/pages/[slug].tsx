@@ -64,7 +64,7 @@ const Producto = () => {
           setProductoEditado={setProductoEditado}
           setVentanaAbiertaEditar={setVentanaAbiertaEditar}
         />
-      )}
+      )}w
       <NavBar />
       {
         <div>
@@ -73,6 +73,7 @@ const Producto = () => {
             <div className="px-4 py-2">
               <span className="font-thin">Nombre: </span>
               <div className="mb-2 text-xl font-bold">{muestra?.nombre}</div>
+              <h1>Slug: {slugify(muestra?.nombre)}</h1>
               <h1>Precio: ${precioMuestra}</h1>
               <h1>Disponibles: {muestra?.stock}</h1>
               <h3 className="font-thin">Descripción: </h3>
