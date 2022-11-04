@@ -45,7 +45,6 @@ const Home: NextPage = () => {
     updateItemQuantity,
     removeItem,
     emptyCart,
-    metadata,
   } = useCart();
 
   const producto = items.map((item) => `${item.quantity}`);
@@ -132,6 +131,7 @@ const Home: NextPage = () => {
                     <li key={item.id}>
                       {item.quantity} x <strong>{item.nombre}</strong>
                       <button
+                        disabled={item.quantity == 1}
                         className="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
                         onClick={() =>
                           updateItemQuantity(item.id, item.quantity - 1)
