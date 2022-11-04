@@ -2,7 +2,7 @@ import { ProductoCompra } from "@prisma/client";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import VentanaAgregar from "../components/ventanaAgregar";
 import slugify from "react-slugify";
@@ -47,6 +47,10 @@ const Home: NextPage = () => {
     emptyCart,
     metadata,
   } = useCart();
+
+  const producto = items.map((item) => `${item.price}`);
+
+  console.log(producto, "hola");
 
   return (
     <>
@@ -125,7 +129,6 @@ const Home: NextPage = () => {
                   <li key={item.id}>
                     {item.quantity} x {item.nombre}
                     <button
-                      disabled={item.quantity === 1}
                       onClick={() =>
                         updateItemQuantity(item.id, item.quantity - 1)
                       }
@@ -136,7 +139,7 @@ const Home: NextPage = () => {
                       onClick={() =>
                         updateItemQuantity(item.id, item.quantity + 1)
                       }
-                      disabled={item.quantity === item.stock}
+                      disabled={item.quantity == item.stock}
                     >
                       +
                     </button>
@@ -144,12 +147,10 @@ const Home: NextPage = () => {
                       Remover &times;
                     </button>
                   </li>
-                  
                 ))}
               </ul>
             </>
-          )
-          }
+          )}
         </div>
       </main>
     </>
