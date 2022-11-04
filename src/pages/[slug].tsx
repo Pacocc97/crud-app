@@ -6,8 +6,10 @@ import slugify from "react-slugify";
 import { NavBar } from "../components/NavBar";
 
 const Producto = () => {
+  ////////////////////////////////////////////////////////////
   const { asPath } = useRouter();
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
+  const [carrito, setCarrito] = useState(0);
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
       setProductos(productos);
@@ -21,10 +23,6 @@ const Producto = () => {
   const muestra = productos[lugar];
   const precioMuestra = Number(muestra?.precio).toFixed(2);
   console.log(precioMuestra, "este es el producto");
-
-  useEffect(() => {
-    localStorage.setItem(asPath, JSON.stringify(muestra));
-  }, [muestra]);
 
   return (
     <>
@@ -57,6 +55,7 @@ const Producto = () => {
           </div>
         </div>
       }
+      <div ></div>
     </>
   );
 };

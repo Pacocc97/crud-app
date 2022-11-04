@@ -22,7 +22,6 @@ const Home: NextPage = () => {
   const [nuevoPrecio, setNuevoPrecio] = useState<string>("");
   const [idProducto, setIdProducto] = useState<string>("");
   const [nuevoStock, setNuevoStock] = useState<string>("");
-  const [sortOrder, setSortOrder] = useState("");
 
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -77,23 +76,7 @@ const Home: NextPage = () => {
           </button>
         </div>
         <hr className="mb-5" />
-        <form className="mb-5 border">
-          <label>Ordenar: </label>
-          {"  "}
-          <select
-            onChange={(e) => {
-              console.log(e.target.value);
-              setSortOrder(e.target.value);
-            }}
-          >
-            <option selected={true} value="">
-              Relevancia
-            </option>
-            <option value="Ascendente">Precio: bajo a alto</option>
 
-            <option value="Descendente">Precio: alto a bajo</option>
-          </select>
-        </form>
         <div className="grid grid-cols-4 gap-4">
           {productos.map((producto) => {
             const { id } = producto;
