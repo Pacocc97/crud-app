@@ -51,7 +51,6 @@ const Home: NextPage = () => {
   const producto = items.map((item) => `${item.quantity}`);
 
   console.log(producto, "hola");
-  
 
   return (
     <>
@@ -133,8 +132,7 @@ const Home: NextPage = () => {
                     <li key={item.id}>
                       {item.quantity} x <strong>{item.nombre}</strong>
                       <button
-                        button
-                        class="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
+                        className="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
                         onClick={() =>
                           updateItemQuantity(item.id, item.quantity - 1)
                         }
@@ -142,8 +140,7 @@ const Home: NextPage = () => {
                         -
                       </button>
                       <button
-                        button
-                        class=" ml-5 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                        className=" ml-5 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
                         onClick={() =>
                           updateItemQuantity(item.id, item.quantity + 1)
                         }
@@ -152,8 +149,7 @@ const Home: NextPage = () => {
                         +
                       </button>
                       <button
-                        button
-                        class=" ml-10 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                        className=" ml-10 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
                         onClick={() => removeItem(item.id)}
                       >
                         Remover &times;
