@@ -99,7 +99,7 @@ const Home: NextPage = () => {
                   </Link>
                   <div className="bg-black text-white">
                     <button onClick={() => addItem(producto)}>
-                      {alreadyAdded ? "Add again" : "Add to Cart"}
+                      {alreadyAdded ? "Añadir de nuevo" : "Añadir a carrito"}
                     </button>
                   </div>
                 </div>
@@ -107,44 +107,50 @@ const Home: NextPage = () => {
             );
           })}
         </div>
-        {isEmpty ? (
-          <p>Carrito vacío</p>
-        ) : (
-          <div>
-            <h1>
-              Cart ({totalUniqueItems} - {cartTotal})
-            </h1>
+        <div>
+          {isEmpty ? (
+            <>
+              <p>Carrito vacío</p>
+            </>
+          ) : (
+            <>
+              <h1>
+                Carrito ({totalUniqueItems} - ${cartTotal})
+              </h1>
 
-            <pre>{JSON.stringify(metadata, null, 2)}</pre>
+              <pre>{JSON.stringify(metadata, null, 2)}</pre>
 
-            {!isEmpty && <button onClick={emptyCart}>Empty cart</button>}
-
-            <ul>
-              {items.map((item) => (
-                <li key={item.id}>
-                  {item.quantity} x {item.name}
-                  <button
-                    onClick={() =>
-                      updateItemQuantity(item.id, item.quantity - 1)
-                    }
-                  >
-                    -
-                  </button>
-                  <button
-                    onClick={() =>
-                      updateItemQuantity(item.id, item.quantity + 1)
-                    }
-                  >
-                    +
-                  </button>
-                  <button onClick={() => removeItem(item.id)}>
-                    Remove &times;
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+              <ul>
+                {items.map((item) => (
+                  <li key={item.id}>
+                    {item.quantity} x {item.nombre}
+                    <button
+                      disabled={item.quantity === 1}
+                      onClick={() =>
+                        updateItemQuantity(item.id, item.quantity - 1)
+                      }
+                    >
+                      -
+                    </button>
+                    <button
+                      onClick={() =>
+                        updateItemQuantity(item.id, item.quantity + 1)
+                      }
+                      disabled={item.quantity === item.stock}
+                    >
+                      +
+                    </button>
+                    <button onClick={() => removeItem(item.id)}>
+                      Remover &times;
+                    </button>
+                  </li>
+                  
+                ))}
+              </ul>
+            </>
+          )
+          }
+        </div>
       </main>
     </>
   );
