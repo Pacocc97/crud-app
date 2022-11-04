@@ -12,16 +12,10 @@ import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
+  const [cartItems, setCartItems] = useState([]);
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
-  const [productoEditado, setProductoEditado] = useState<ProductoCompra[]>([]);
+  const [productosCarrito, setProductosCarrito] = useState([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
-  const [ventanaAbiertaEditar, setVentanaAbiertaEditar] =
-    useState<boolean>(false);
-  const [nuevoNombre, setNuevoNombre] = useState<string>("");
-  const [nuevaDesc, setNuevaDesc] = useState<string>("");
-  const [nuevoPrecio, setNuevoPrecio] = useState<string>("");
-  const [idProducto, setIdProducto] = useState<string>("");
-  const [nuevoStock, setNuevoStock] = useState<string>("");
 
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -29,7 +23,7 @@ const Home: NextPage = () => {
     },
   });
 
-  console.log(productos, "esto es data");
+  console.log(productosCarrito, "esto es data");
 
   const { mutate: borrarProducto } = trpc.productos.borrarProducto.useMutation({
     onSuccess(productoCompra) {
@@ -40,6 +34,7 @@ const Home: NextPage = () => {
   });
   const editarProducto = trpc.productos.editarProducto.useMutation({});
   const { asPath } = useRouter();
+
   return (
     <>
       <Head>
@@ -53,17 +48,7 @@ const Home: NextPage = () => {
           setVentanaAbierta={setVentanaAbierta}
         />
       )}
-      {ventanaAbiertaEditar && (
-        <VentanaEditar
-          nuevoStock={nuevoStock}
-          nuevoPrecio={nuevoPrecio}
-          idProducto={idProducto}
-          nuevoNombre={nuevoNombre}
-          nuevaDesc={nuevaDesc}
-          setProductoEditado={setProductoEditado}
-          setVentanaAbiertaEditar={setVentanaAbiertaEditar}
-        />
-      )}
+
       <NavBar />
       <main className="mx-auto my-12 max-w-3xl">
         <div className="mb-5 flex justify-between">
@@ -98,24 +83,16 @@ const Home: NextPage = () => {
                   </Link>
                   <div className="px-6 pt-4 pb-2">
                     <button
-                      onClick={() => {
-                        setIdProducto(producto.id);
-                        setNuevaDesc(producto.desc);
-                        setNuevoNombre(producto.nombre);
-                        setNuevoPrecio(producto.precio);
-                        setVentanaAbiertaEditar(true);
-                        setNuevoStock(producto.stock);
-                      }}
+                      onClick={() =>
+                        setProductosCarrito([
+                          ...productosCarrito,
+                          [producto.nombre],
+                        ])
+                      }
+                      className="bg-black text-white"
                     >
-                      <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
-                        Editar
-                      </span>
+                      Añadir al carrito
                     </button>
-                    <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
-                      <button onClick={() => borrarProducto({ id })}>
-                        Eliminar
-                      </button>
-                    </span>
                   </div>
                 </div>
               </div>
@@ -123,13 +100,8 @@ const Home: NextPage = () => {
           })}
         </div>
         <div>
-          <h1>Productos en carrito</h1>
-          <ul>
-            <li>Prueba</li>
-            <li>Prueba</li>
-            <li>Prueba</li>
-            <li>Prueba</li>
-          </ul>
+          <h1>Productos en carrito </h1>
+          <ul></ul>
           <hr />
           <h2>Total productos</h2>
           <h2></h2>
