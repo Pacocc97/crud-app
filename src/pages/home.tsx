@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const [productos, setProductos] = useState<ProductoCompra[]>([]);
   const [productosCarrito, setProductosCarrito] = useState([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
-  const { addItem, inCart, setCartMetadata } = useCart();
+  const { addItem, inCart } = useCart();
 
   const data = trpc.productos.verProductos.useQuery([], {
     onSuccess(productos) {
@@ -79,9 +79,6 @@ const Home: NextPage = () => {
         </div>
         <hr className="mb-5" />
         <div className="mb-10 grid grid-cols-4 gap-4">
-          <button onClick={() => setCartMetadata({ hello: "world" })}>
-            Set metadata
-          </button>
           {productos.map((producto) => {
             const alreadyAdded = inCart(producto.id);
             const { id } = producto;
@@ -95,16 +92,20 @@ const Home: NextPage = () => {
                       <div className="mb-2 text-xl font-bold">
                         {slugify(producto.nombre)}
                       </div>
-                      <h1>${producto.price}</h1>
+                      <h1>${Number(producto.price).toFixed(2)}</h1>
                       <h1>Disponibles: ({producto.stock})</h1>
                       <h3 className="font-thin">Descripción:</h3>
                       <p className="text-base text-gray-700">{producto.desc}</p>
                     </div>
                   </Link>
                   <div className="bg-black text-white">
-                    <button onClick={() => addItem(producto)}>
-                      {alreadyAdded ? "Añadir de nuevo" : "Añadir a carrito"}
-                    </button>
+                    {alreadyAdded ? (
+                      <button disabled>¡Añadido!</button>
+                    ) : (
+                      <button onClick={() => addItem(producto)}>
+                        Añadir a carrito
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -119,43 +120,46 @@ const Home: NextPage = () => {
             </>
           ) : (
             <>
-              <h1 className="mb-2 text-xl font-bold">Carrito ( )</h1>
+              <h1 className="mb-2 text-xl font-bold">Carrito</h1>
               <h1>Productos en carrito: {totalUniqueItems}</h1>
               <h1>Total: ${Number(cartTotal).toFixed(2)}</h1>
               <h1></h1>
-              <pre>{JSON.stringify(metadata, null, 2)}</pre>
 
               <ul>
                 {items.map((item) => (
-                  <li key={item.id}>
-                    {item.quantity} x <strong>{item.nombre}</strong>
-                    <button
-                      button
-                      class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
-                      onClick={() =>
-                        updateItemQuantity(item.id, item.quantity - 1)
-                      }
-                    >
-                      -
-                    </button>
-                    <button
-                      button
-                      class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
-                      onClick={() =>
-                        updateItemQuantity(item.id, item.quantity + 1)
-                      }
-                      disabled={item.quantity == item.stock}
-                    >
-                      +
-                    </button>
-                    <button
-                      button
-                      class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
-                      onClick={() => removeItem(item.id)}
-                    >
-                      Remover &times;
-                    </button>
-                  </li>
+                  <>
+                    <hr />
+                    <li key={item.id}>
+                      {item.quantity} x <strong>{item.nombre}</strong>
+                      <button
+                        button
+                        class="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
+                        onClick={() =>
+                          updateItemQuantity(item.id, item.quantity - 1)
+                        }
+                      >
+                        -
+                      </button>
+                      <button
+                        button
+                        class=" ml-5 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                        onClick={() =>
+                          updateItemQuantity(item.id, item.quantity + 1)
+                        }
+                        disabled={item.quantity == item.stock}
+                      >
+                        +
+                      </button>
+                      <button
+                        button
+                        class=" ml-10 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                        onClick={() => removeItem(item.id)}
+                      >
+                        Remover &times;
+                      </button>
+                    </li>
+                    <hr />
+                  </>
                 ))}
               </ul>
             </>
