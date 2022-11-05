@@ -12,7 +12,6 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 
 const Producto = () => {
-  
   const [productoEditado, setProductoEditado] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
   const [ventanaAbiertaEditar, setVentanaAbiertaEditar] =
@@ -69,17 +68,22 @@ const Producto = () => {
 
       <NavBar />
       {
-        <div className="h-screen">
+        <div className="h-screen bg-gray-100">
           <h1 className="text-xs">id:{muestra?.id}</h1>
-          <div className="max-w-sm overflow-hidden rounded shadow-lg">
+          <div className="m-20 max-w-sm overflow-hidden rounded p-8 shadow-lg">
             <div className="px-4 py-2">
               <span className="font-thin">Nombre: </span>
-              <div className="mb-2 text-xl font-bold">{muestra?.nombre}</div>
+              <div className="mb-2 text-4xl font-bold">{muestra?.nombre}</div>
               <h1>Slug: {slugify(muestra?.nombre)}</h1>
-              <h1>Precio: ${precioMuestra}</h1>
-              <h1>Disponibles: {muestra?.stock}</h1>
+              <h1>
+                <span className="font-thin">Precio:</span>{" "}
+                <span className="text-2xl">${precioMuestra}</span>
+              </h1>
+              <h1>
+                Disponibles: <span className="text-2xl">{muestra?.stock}</span>
+              </h1>
               <h3 className="font-thin">Descripción: </h3>
-              <p className="text-base text-gray-700">{muestra?.desc}</p>
+              <p className="text-2xl text-gray-700">{muestra?.desc}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
               <button
@@ -92,21 +96,21 @@ const Producto = () => {
                   setNuevoStock(muestra.stock);
                 }}
               >
-                <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
+                <span className="mr-2 rounded bg-gray-800 px-3 py-2 text-xs font-bold uppercase text-white">
                   Editar
                 </span>
               </button>
               <Link href="/home">
                 <button onClick={() => borrarProducto({ id: muestra.id })}>
-                  <span className="mr-2 mb-2 inline-block rounded-full bg-red-600  px-3 py-1 text-sm font-semibold text-white hover:bg-red-500">
+                  <span className="mr-2  rounded bg-red-600 px-3 py-2 text-xs font-bold uppercase text-white hover:bg-red-400">
                     Eliminar
                   </span>
                 </button>
               </Link>
               <Link href="/home">
                 <button>
-                  <span className="mr-2 mb-2 inline-block rounded-full bg-black px-3 py-1 text-sm font-semibold text-white hover:bg-slate-700 ">
-                    Regresar a producto{" "}
+                  <span className="rounded bg-gray-800 px-3 py-2 text-xs font-bold uppercase text-white">
+                    Regresar{" "}
                   </span>
                 </button>
               </Link>

@@ -76,7 +76,9 @@ const Home: NextPage = () => {
           <>
             <h1 className="m-2 text-xl font-bold">Carrito</h1>
             <h1>Productos en carrito: {totalUniqueItems}</h1>
-            <h1 className="mb-4">Total carrito: ${Number(cartTotal).toFixed(2)}</h1>
+            <h1 className="mb-4">
+              Total carrito: ${Number(cartTotal).toFixed(2)}
+            </h1>
             <h1></h1>
 
             <ul className="relative">
@@ -87,7 +89,7 @@ const Home: NextPage = () => {
                     {item.quantity} x <strong>{item.nombre}</strong>
                     <button
                       disabled={item.quantity == 1}
-                      className=" ml-5 mt-1 rounded border border-black bg-transparent py-2 px-4 font-semibold text-black hover:border-transparent hover:bg-black hover:text-white"
+                      className=" ml-5 mt-1 rounded border border-black bg-transparent  px-2 font-semibold text-black hover:border-transparent hover:bg-black hover:text-white"
                       onClick={() =>
                         updateItemQuantity(item.id, item.quantity - 1)
                       }
@@ -95,7 +97,7 @@ const Home: NextPage = () => {
                       -
                     </button>
                     <button
-                      className="ml-5 rounded bg-black py-2 px-4 font-bold text-white hover:bg-gray-800"
+                      className="ml-2 rounded bg-black px-2 font-bold text-white hover:bg-gray-800"
                       onClick={() =>
                         updateItemQuantity(item.id, item.quantity + 1)
                       }
@@ -104,10 +106,10 @@ const Home: NextPage = () => {
                       +
                     </button>
                     <button
-                      className="ml-1 mt-2 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
+                      className="ml-1 mt-2 border border-red-500 bg-transparent  px-2 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
                       onClick={() => removeItem(item.id)}
                     >
-                      Remover &times;
+                      Remover
                     </button>
                   </li>
                   <li className="flex  h-12 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded bg-white py-4 px-6 text-sm text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100 hover:text-gray-900">
@@ -120,7 +122,7 @@ const Home: NextPage = () => {
           </>
         )}
       </div>
-      <main className="mx-auto my-12 mb-96 max-w-3xl">
+      <main className="mx-auto my-12 h-screen max-w-3xl">
         <div className="mb-5 flex justify-between">
           <h2 className="text-2xl font-semibold">Lista de productos</h2>
           <button
@@ -154,14 +156,14 @@ const Home: NextPage = () => {
 
                   {alreadyAdded ? (
                     <button
-                      className="rounded-md bg-black p-2 text-sm text-white transition hover:bg-gray-600"
+                      className="m-2 rounded bg-gray-800 px-3 py-2 text-xs font-bold uppercase text-white"
                       disabled
                     >
                       ¡Añadido!
                     </button>
                   ) : (
                     <button
-                      className="rounded-md bg-black p-2 text-sm text-white transition hover:bg-gray-600"
+                      className=" m-2 rounded bg-gray-800 px-3 py-2 text-xs font-bold uppercase text-white"
                       onClick={() => addItem(producto)}
                     >
                       Añadir a carrito
@@ -173,7 +175,6 @@ const Home: NextPage = () => {
           })}
         </div>
         <hr className="mb-10" />
-        <div></div>
       </main>
       <Footer />
     </>
