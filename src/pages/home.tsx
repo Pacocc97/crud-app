@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { CartProvider, useCart } from "react-use-cart";
 
 import { trpc } from "../utils/trpc";
+import Footer from "../components/Footer";
 
 const Home: NextPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -66,7 +67,7 @@ const Home: NextPage = () => {
       )}
 
       <NavBar />
-      <main className="mx-auto my-12 max-w-3xl">
+      <main className="mx-auto my-12 h-screen max-w-3xl">
         <div className="mb-5 flex justify-between">
           <h2 className="text-2xl font-semibold">Lista de productos</h2>
           <button
@@ -173,6 +174,7 @@ const Home: NextPage = () => {
           )}
         </div>
       </main>
+      <Footer />
     </>
   );
 };

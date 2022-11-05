@@ -9,6 +9,7 @@ import VentanaAgregar from "../components/ventanaAgregar";
 import VentanaEditar from "../components/ventanaEditar";
 import { stringify } from "querystring";
 import Link from "next/link";
+import Footer from "../components/Footer";
 
 const Producto = () => {
   const [productoEditado, setProductoEditado] = useState<ProductoCompra[]>([]);
@@ -64,10 +65,10 @@ const Producto = () => {
           setVentanaAbiertaEditar={setVentanaAbiertaEditar}
         />
       )}
-      
+
       <NavBar />
       {
-        <div>
+        <div className="h-screen">
           <h1 className="text-xs">id:{muestra?.id}</h1>
           <div className="max-w-sm overflow-hidden rounded shadow-lg">
             <div className="px-4 py-2">
@@ -112,7 +113,7 @@ const Producto = () => {
           </div>
         </div>
       }
-      <div></div>
+      <Footer />
     </>
   );
 };
