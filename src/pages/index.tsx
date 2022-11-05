@@ -1,16 +1,22 @@
 import Link from "next/link";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import Home from "./home";
 
 function Index() {
   return (
-    <>
+    <div className="h-screen">
       <NavBar />
-      <div className="mb-4">
-        <Link href={"/home"}>Esta es la página de inicio</Link>
+      <div>
+        <Link href={"/home"}>
+          <div className="m-40">
+            <h1 className="text-5xl">Esta es la página de inicio muestra</h1>
+          </div>
+        </Link>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
 

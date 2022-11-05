@@ -23,7 +23,7 @@ const navData = [
 export const NavBar = () => {
   return (
     <div className=" container mx-auto flex w-full items-center justify-between bg-black px-5 py-6 text-2xl font-bold  text-white">
-      <Link href="/">
+      <Link href="/home">
         <h1 className="flex h-[3.5rem] items-center text-center">Inicio</h1>
       </Link>
       <nav className=" space-x-10 md:flex">
