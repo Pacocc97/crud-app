@@ -57,7 +57,7 @@ const VentanaEditar: FC<VentanaEditar> = ({
           <h4>Precio</h4>
           <input
             required
-            type="text"
+            type="number"
             value={nuevoPrecioProducto}
             onChange={(e) => setNuevoPrecioProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
@@ -65,7 +65,7 @@ const VentanaEditar: FC<VentanaEditar> = ({
           <h4>Stock</h4>
           <input
             required
-            type="text"
+            type="number"
             value={nuevoStockProducto}
             onChange={(e) => setNuevoStockProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"

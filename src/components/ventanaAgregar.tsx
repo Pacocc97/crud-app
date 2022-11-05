@@ -36,14 +36,14 @@ const VentanaAgregar: FC<VentanaAgregar> = ({
           />
           <h4>Precio</h4>
           <input
-            type="text"
+            type="number"
             value={precioProducto}
             onChange={(e) => setPrecioProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
           />
           <h4>Stock</h4>
           <input
-            type="text"
+            type="number"
             value={stockProducto}
             onChange={(e) => setStockProducto(e.target.value)}
             className="w-full rounded-md border-gray-300 bg-gray-200 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50"
