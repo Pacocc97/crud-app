@@ -67,7 +67,60 @@ const Home: NextPage = () => {
       )}
 
       <NavBar />
-      <main className="mx-auto my-12 h-screen max-w-3xl">
+      <div className="absolute h-full w-60 bg-white px-1 shadow-md">
+        {isEmpty ? (
+          <>
+            <p className=" m-5 text-xl font-bold">Carrito vacío</p>
+          </>
+        ) : (
+          <>
+            <h1 className="m-2 text-xl font-bold">Carrito</h1>
+            <h1>Productos en carrito: {totalUniqueItems}</h1>
+            <h1 className="mb-4">Total carrito: ${Number(cartTotal).toFixed(2)}</h1>
+            <h1></h1>
+
+            <ul className="relative">
+              {items.map((item) => (
+                <>
+                  <hr />
+                  <li className="relative bg-white" key={item.id}>
+                    {item.quantity} x <strong>{item.nombre}</strong>
+                    <button
+                      disabled={item.quantity == 1}
+                      className=" ml-5 mt-1 rounded border border-black bg-transparent py-2 px-4 font-semibold text-black hover:border-transparent hover:bg-black hover:text-white"
+                      onClick={() =>
+                        updateItemQuantity(item.id, item.quantity - 1)
+                      }
+                    >
+                      -
+                    </button>
+                    <button
+                      className="ml-5 rounded bg-black py-2 px-4 font-bold text-white hover:bg-gray-800"
+                      onClick={() =>
+                        updateItemQuantity(item.id, item.quantity + 1)
+                      }
+                      disabled={item.quantity == item.stock}
+                    >
+                      +
+                    </button>
+                    <button
+                      className="ml-1 mt-2 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
+                      onClick={() => removeItem(item.id)}
+                    >
+                      Remover &times;
+                    </button>
+                  </li>
+                  <li className="flex  h-12 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded bg-white py-4 px-6 text-sm text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100 hover:text-gray-900">
+                    Total producto: ${(item.quantity * item.price).toFixed(2)}
+                  </li>
+                  <hr />
+                </>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+      <main className="mx-auto my-12 mb-96 max-w-3xl">
         <div className="mb-5 flex justify-between">
           <h2 className="text-2xl font-semibold">Lista de productos</h2>
           <button
@@ -120,59 +173,7 @@ const Home: NextPage = () => {
           })}
         </div>
         <hr className="mb-10" />
-        <div>
-          {isEmpty ? (
-            <>
-              <p className="mb-2 text-xl font-bold">Carrito vacío</p>
-            </>
-          ) : (
-            <>
-              <h1 className="mb-2 text-xl font-bold">Carrito</h1>
-              <h1>Productos en carrito: {totalUniqueItems}</h1>
-              <h1>Total: ${Number(cartTotal).toFixed(2)}</h1>
-              <h1></h1>
-
-              <ul>
-                {items.map((item) => (
-                  <>
-                    <hr />
-                    <li key={item.id}>
-                      {item.quantity} x <strong>{item.nombre}</strong>
-                      <button
-                        disabled={item.quantity == 1}
-                        className=" ml-5 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
-                        onClick={() =>
-                          updateItemQuantity(item.id, item.quantity - 1)
-                        }
-                      >
-                        -
-                      </button>
-                      <button
-                        className="ml-5 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-                        onClick={() =>
-                          updateItemQuantity(item.id, item.quantity + 1)
-                        }
-                        disabled={item.quantity == item.stock}
-                      >
-                        +
-                      </button>
-                      <button
-                        className="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
-                        onClick={() => removeItem(item.id)}
-                      >
-                        Remover &times;
-                      </button>
-                    </li>
-                    <li>
-                      Total producto: ${(item.quantity * item.price).toFixed(2)}
-                    </li>
-                    <hr />
-                  </>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
+        <div></div>
       </main>
       <Footer />
     </>

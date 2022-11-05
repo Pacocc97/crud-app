@@ -12,6 +12,7 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 
 const Producto = () => {
+  
   const [productoEditado, setProductoEditado] = useState<ProductoCompra[]>([]);
   const [ventanaAbierta, setVentanaAbierta] = useState<boolean>(false);
   const [ventanaAbiertaEditar, setVentanaAbiertaEditar] =
