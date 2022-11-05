@@ -97,15 +97,22 @@ const Home: NextPage = () => {
                       <p className="text-base text-gray-700">{producto.desc}</p>
                     </div>
                   </Link>
-                  <div className="bg-black text-white">
-                    {alreadyAdded ? (
-                      <button disabled>¡Añadido!</button>
-                    ) : (
-                      <button onClick={() => addItem(producto)}>
-                        Añadir a carrito
-                      </button>
-                    )}
-                  </div>
+
+                  {alreadyAdded ? (
+                    <button
+                      className="rounded-md bg-black p-2 text-sm text-white transition hover:bg-gray-600"
+                      disabled
+                    >
+                      ¡Añadido!
+                    </button>
+                  ) : (
+                    <button
+                      className="rounded-md bg-black p-2 text-sm text-white transition hover:bg-gray-600"
+                      onClick={() => addItem(producto)}
+                    >
+                      Añadir a carrito
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -115,7 +122,7 @@ const Home: NextPage = () => {
         <div>
           {isEmpty ? (
             <>
-              <p>Carrito vacío</p>
+              <p className="mb-2 text-xl font-bold">Carrito vacío</p>
             </>
           ) : (
             <>
@@ -132,7 +139,7 @@ const Home: NextPage = () => {
                       {item.quantity} x <strong>{item.nombre}</strong>
                       <button
                         disabled={item.quantity == 1}
-                        className="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
+                        className=" ml-5 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
                         onClick={() =>
                           updateItemQuantity(item.id, item.quantity - 1)
                         }
@@ -140,7 +147,7 @@ const Home: NextPage = () => {
                         -
                       </button>
                       <button
-                        className=" ml-5 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                        className="ml-5 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
                         onClick={() =>
                           updateItemQuantity(item.id, item.quantity + 1)
                         }
@@ -149,7 +156,7 @@ const Home: NextPage = () => {
                         +
                       </button>
                       <button
-                        className=" ml-10 rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+                        className="ml-5 border border-red-500 bg-transparent py-2 px-4 font-semibold text-red-700 before:rounded hover:border-transparent hover:bg-red-500 hover:text-white"
                         onClick={() => removeItem(item.id)}
                       >
                         Remover &times;
