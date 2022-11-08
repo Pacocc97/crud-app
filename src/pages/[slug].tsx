@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { ProductoCompra } from "@prisma/client";
 import { trpc } from "../utils/trpc";
 import slugify from "react-slugify";
 import { NavBar } from "../components/NavBar";
 import Head from "next/head";
-import VentanaAgregar from "../components/ventanaAgregar";
+
 import VentanaEditar from "../components/ventanaEditar";
-import { stringify } from "querystring";
+
 import Link from "next/link";
 import Footer from "../components/Footer";
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import Footer from "../components/Footer";
 import { NavBar } from "../components/NavBar";
-import Home from "./home";
+
 
 function Index() {
   return (

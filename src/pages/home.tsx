@@ -2,12 +2,12 @@ import { ProductoCompra } from "@prisma/client";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavBar } from "../components/NavBar";
 import VentanaAgregar from "../components/ventanaAgregar";
-import slugify from "react-slugify";
+
 import { useRouter } from "next/router";
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 
 import { trpc } from "../utils/trpc";
 import Footer from "../components/Footer";

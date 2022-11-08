@@ -2,7 +2,7 @@ import { ProductoCompra } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 import { trpc } from "../utils/trpc";
-import { CartItem } from "../components/CartItem";
+
 import { NavBar } from "../components/NavBar";
 
 type ShoppingCartProps = {
